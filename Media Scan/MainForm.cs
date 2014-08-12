@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Media_Scan.model;
+using System.Diagnostics;
 
 
 namespace Media_Scan
@@ -61,6 +62,10 @@ namespace Media_Scan
             string selectedMovie = Config.GetMovie();
             int index = -1;
 
+            minuteUd.Enabled = true;
+            playBtn.Enabled = true;
+            saveBtn.Enabled = true;
+
             foreach (string item in movieListCb.Items)
             {
                 index++;
@@ -72,9 +77,18 @@ namespace Media_Scan
                 }
             }
 
-            if (movieListCb.SelectedIndex == -1)
+            if (movieListCb.SelectedIndex == -1 && movieListCb.Items.Count > 0)
             {
                 movieListCb.SelectedIndex = 0;
+            }
+            else if (movieListCb.Items.Count == 0)
+            {
+                seasonsCb.Items.Clear();
+                episodesCb.Items.Clear();
+                minuteUd.Value = 0;
+                minuteUd.Enabled = false;
+                playBtn.Enabled = false;
+                saveBtn.Enabled = false;
             }
         }
 
@@ -98,6 +112,8 @@ namespace Media_Scan
             {
                 episodesCb.SelectedIndex = 0;
             }
+
+            SetSelectedMinute();
         }
 
         private void SetSelectedMinute()
@@ -109,6 +125,7 @@ namespace Media_Scan
         {
             List<String> titles = scanner.GetMovieTitles();
 
+            movieListCb.Items.Clear();
             foreach (string title in titles)
             {
                 movieListCb.Items.Add(title);
@@ -150,11 +167,44 @@ namespace Media_Scan
         private void seasonsCb_SelectedIndexChanged(object sender, EventArgs e)
         {
             GetEpisodesInfo();
+            SetSelectedEpisode();
+        }
+
+        private void scanBtn_Click(object sender, EventArgs e)
+        {
+            Config.SavePath(pathTi.Text);
+            scanner.ScanDirectoryPath(Config.GetScanDirPath());
+            GetMovies();
+            SetSelectedMovie();
+        }
+
+        private void playBtn_Click(object sender, EventArgs e)
+        {
+            Movie movie = SaveMovie();
+            Process.Start(movie.Path);
+        }
+
+        private Movie SaveMovie()
+        {
+            Movie movie = scanner.GetMovie(movieListCb.Text, int.Parse(seasonsCb.Text), int.Parse(episodesCb.Text));
+            Config.SaveMovie(movie.Name, seasonsCb.Text, episodesCb.Text, minuteUd.Value.ToString(@"0"));
+
+            return movie;
+        }
+
+        private void episodesCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetSelectedMinute();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SaveMovie();
         }
 
         private void pathTi_TextChanged(object sender, EventArgs e)
         {
-            Config.SavePath(pathTi.Text);
+            scanBtn.Enabled = pathTi.Text.Length > 0;
         }
     }
 }

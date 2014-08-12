@@ -13,6 +13,7 @@ namespace Media_Scan
         public string Name;
         public int Season;
         public int Episode;
+        //public string PosterUrl;
 
         public Movie()
         {

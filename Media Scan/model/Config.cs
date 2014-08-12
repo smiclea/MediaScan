@@ -10,11 +10,27 @@ namespace Media_Scan.model
 {
     class Config
     {
-        static public string configTxt;
+        static public string ConfigTxt;
+
+        static private string FileName = "scan.config";
+
+        static public void BuildConfigFile()
+        {
+            if (File.Exists(FileName))
+            {
+                return;
+            }
+
+            ConfigTxt = @"$selected_movie=";
+            ConfigTxt += Environment.NewLine + @"$path=";
+
+            File.WriteAllText(FileName, ConfigTxt);
+        }
 
         static public void ReadConfig()
         {
-            configTxt = File.ReadAllText(@"scan.config");
+            BuildConfigFile();
+            ConfigTxt = File.ReadAllText(FileName);
         }
 
         static public string GetScanDirPath(bool skipTrim = false)
@@ -27,14 +43,15 @@ namespace Media_Scan.model
 
         public static void SavePath(string path)
         {
-            configTxt = configTxt.Replace(GetScanDirPath(true), path);
-            File.WriteAllText(@"scan.config", configTxt);
+            Regex pathEx = new Regex(@"\$path=.*");
+            ConfigTxt = ConfigTxt.Replace(pathEx.Match(ConfigTxt).Groups[0].Value, @"$path=" + path);
+            File.WriteAllText(FileName, ConfigTxt);
         }
 
-        public static string GetMovie(bool skipTrim = false)
+        public static string GetMovie()
         {
             string result = @"";
-            result = ReadConfigProp(@"movie", skipTrim);
+            result = ReadConfigProp(@"selected_movie");
 
             return result;
         }
@@ -43,7 +60,7 @@ namespace Media_Scan.model
         {
             string result = @"";
             Regex pathEx = new Regex(@"\$" + prop + "=(.*)");
-            Match match = pathEx.Match(configTxt);
+            Match match = pathEx.Match(ConfigTxt);
 
             result = match.Groups[1].Value;
 
@@ -59,9 +76,9 @@ namespace Media_Scan.model
         {
             int result = -1;
             Regex exp = new Regex(@"#" + movie + @"\|S(\d{1,})");
-            Match match = exp.Match(configTxt);
+            Match match = exp.Match(ConfigTxt);
 
-            if (exp.IsMatch(configTxt))
+            if (exp.IsMatch(ConfigTxt))
             {
                 result = int.Parse(match.Groups[1].Value);
             }
@@ -73,9 +90,9 @@ namespace Media_Scan.model
         {
             int result = -1;
             Regex exp = new Regex(@"#" + movie +  @"\|S" + season + @"\|E(\d{1,})");
-            Match match = exp.Match(configTxt);
+            Match match = exp.Match(ConfigTxt);
 
-            if (exp.IsMatch(configTxt))
+            if (exp.IsMatch(ConfigTxt))
             {
                 result = int.Parse(match.Groups[1].Value);
             }
@@ -87,14 +104,38 @@ namespace Media_Scan.model
         {
             int result = 0;
             Regex exp = new Regex(@"#" + movie + @"\|S" + season + @"\|E" + episode + @"\|M(\d{1,})");
-            Match match = exp.Match(configTxt);
+            Match match = exp.Match(ConfigTxt);
 
-            if (exp.IsMatch(configTxt))
+            if (exp.IsMatch(ConfigTxt))
             {
                 result = int.Parse(match.Groups[1].Value);
             }
 
             return result;
+        }
+
+        public static void SaveMovie(string name, string season, string episode, string minute)
+        {
+            Regex movieInfoEx = new Regex(@"#" + name + @".*");
+            Match movieInfoMatch = movieInfoEx.Match(ConfigTxt);
+            string movieText = "#" + name + "|S" + season + "|E" + episode + "|M" + minute;
+
+            if (movieInfoMatch.Groups[0].Value != "")
+            {
+                ConfigTxt = ConfigTxt.Replace(movieInfoMatch.Groups[0].Value, movieText);
+            }
+            else
+            {
+                ConfigTxt += Environment.NewLine + movieText;
+            }
+
+            Regex selectedMovieEx = new Regex(@"\$selected_movie=.*");
+            Match selectedMovieMatch = selectedMovieEx.Match(ConfigTxt);
+            ConfigTxt = ConfigTxt.Replace(selectedMovieMatch.Groups[0].Value, @"$selected_movie=" + name);
+            
+
+            File.WriteAllText(FileName, ConfigTxt);
+
         }
     }
 }
