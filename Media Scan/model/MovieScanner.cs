@@ -17,7 +17,7 @@ namespace Media_Scan
         // The name is parsed by considering the string from 0 to the index of season and episode info
         // if the name contains torrent keys (usually these keys are found AFTER season and episode info - but just to be safe), remove them
         private string[] torrentKeys = new string[] {"hdtv", "dimension", "720p"};
-        private string[] extensions = new string[] {"avi", "mkv", "mp4", "txt"};
+        private string[] extensions = new string[] {"avi", "mkv", "mp4"};
         private Regex movieEx = new Regex(@"(.*)(?:s|S)(\d{1,2})\.?(?:e|E)(\d{1,2})");
 
         public void ScanDirectoryPath(string dirPath)
