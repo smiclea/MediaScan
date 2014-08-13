@@ -47,7 +47,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 83);
+            this.label1.Location = new System.Drawing.Point(12, 76);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 0;
@@ -57,16 +57,16 @@
             // 
             this.movieListCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.movieListCb.FormattingEnabled = true;
-            this.movieListCb.Location = new System.Drawing.Point(71, 80);
+            this.movieListCb.Location = new System.Drawing.Point(71, 73);
             this.movieListCb.Name = "movieListCb";
-            this.movieListCb.Size = new System.Drawing.Size(207, 21);
+            this.movieListCb.Size = new System.Drawing.Size(205, 21);
             this.movieListCb.TabIndex = 1;
             this.movieListCb.SelectedIndexChanged += new System.EventHandler(this.movieListCb_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 110);
+            this.label2.Location = new System.Drawing.Point(12, 103);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 0;
@@ -76,7 +76,7 @@
             // 
             this.seasonsCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.seasonsCb.FormattingEnabled = true;
-            this.seasonsCb.Location = new System.Drawing.Point(71, 107);
+            this.seasonsCb.Location = new System.Drawing.Point(71, 100);
             this.seasonsCb.Name = "seasonsCb";
             this.seasonsCb.Size = new System.Drawing.Size(42, 21);
             this.seasonsCb.TabIndex = 1;
@@ -85,7 +85,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 137);
+            this.label3.Location = new System.Drawing.Point(12, 130);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 2;
@@ -95,7 +95,7 @@
             // 
             this.episodesCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.episodesCb.FormattingEnabled = true;
-            this.episodesCb.Location = new System.Drawing.Point(71, 134);
+            this.episodesCb.Location = new System.Drawing.Point(71, 127);
             this.episodesCb.Name = "episodesCb";
             this.episodesCb.Size = new System.Drawing.Size(42, 21);
             this.episodesCb.TabIndex = 3;
@@ -103,9 +103,9 @@
             // 
             // playBtn
             // 
-            this.playBtn.Location = new System.Drawing.Point(71, 186);
+            this.playBtn.Location = new System.Drawing.Point(68, 183);
             this.playBtn.Name = "playBtn";
-            this.playBtn.Size = new System.Drawing.Size(75, 23);
+            this.playBtn.Size = new System.Drawing.Size(101, 23);
             this.playBtn.TabIndex = 4;
             this.playBtn.Text = "Play && Save";
             this.playBtn.UseVisualStyleBackColor = true;
@@ -114,7 +114,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 162);
+            this.label4.Location = new System.Drawing.Point(12, 155);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 5;
@@ -122,7 +122,7 @@
             // 
             // minuteUd
             // 
-            this.minuteUd.Location = new System.Drawing.Point(71, 160);
+            this.minuteUd.Location = new System.Drawing.Point(71, 153);
             this.minuteUd.Name = "minuteUd";
             this.minuteUd.Size = new System.Drawing.Size(42, 20);
             this.minuteUd.TabIndex = 6;
@@ -157,9 +157,9 @@
             // 
             // saveBtn
             // 
-            this.saveBtn.Location = new System.Drawing.Point(152, 186);
+            this.saveBtn.Location = new System.Drawing.Point(175, 183);
             this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(75, 23);
+            this.saveBtn.Size = new System.Drawing.Size(101, 23);
             this.saveBtn.TabIndex = 10;
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = true;
@@ -169,7 +169,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 219);
+            this.ClientSize = new System.Drawing.Size(290, 219);
             this.Controls.Add(this.saveBtn);
             this.Controls.Add(this.scanBtn);
             this.Controls.Add(this.pathTi);
